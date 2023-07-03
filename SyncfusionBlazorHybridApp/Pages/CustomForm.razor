@@ -1,0 +1,148 @@
+﻿@using System.ComponentModel.DataAnnotations;
+
+<h2>Customer Registration Form</h2>
+
+<EditForm Model="@CustomerDetails" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">First Name :</label>
+            <SfTextBox  @bind-Value="@CustomerDetails.FirstName"></SfTextBox>
+            <ValidationMessage For="@(() => CustomerDetails.FirstName)"></ValidationMessage>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Last Name :</label>
+            <SfTextBox  @bind-Value="@CustomerDetails.LastName"></SfTextBox>
+            <ValidationMessage For="@(() => CustomerDetails.LastName)"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Gender :</label>
+            <SfComboBox  TValue="string" TItem="Gender" @bind-Value="@CustomerDetails.Gender" DataSource="@Genders">
+                <ComboBoxFieldSettings Text="Name" Value="Code"></ComboBoxFieldSettings>
+            </SfComboBox>
+            <ValidationMessage For="@(() => CustomerDetails.Gender)"></ValidationMessage>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Date of Birth :</label>
+            <SfDatePicker  @bind-Value="@CustomerDetails.DateOfBirth"></SfDatePicker>
+            <ValidationMessage For="@(() => CustomerDetails.DateOfBirth)"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <label class="form-label">Email ID :</label>
+            <SfTextBox  @bind-Value="@CustomerDetails.Email"></SfTextBox>
+            <ValidationMessage For="@(() => CustomerDetails.Email)"></ValidationMessage>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Phone Number :</label>
+            <SfTextBox  @bind-Value="@CustomerDetails.PhoneNumber"></SfTextBox>
+            <ValidationMessage For="@(() => CustomerDetails.PhoneNumber)"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label class="form-label">Address :</label>
+            <SfTextBox  Multiline=true @bind-Value="@CustomerDetails.Address"></SfTextBox>
+            <ValidationMessage For="@(() => CustomerDetails.Address)"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">Password :</label>
+            <SfTextBox  @bind-Value="@CustomerDetails.Password"></SfTextBox>
+            <ValidationMessage For="@(() => CustomerDetails.Password)"></ValidationMessage>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Confirm Password :</label>
+            <SfTextBox  @bind-Value="@CustomerDetails.ConfirmPassword"></SfTextBox>
+            <ValidationMessage For="@(() => CustomerDetails.ConfirmPassword)"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <SfButton Type="submit" IsPrimary=true>Save</SfButton>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private Customer CustomerDetails;
+    private List<Gender> Genders;
+
+    // Handle form submission
+    private void HandleValidSubmit()
+    {
+        // Process the valid form
+    }
+
+    protected override void OnInitialized()
+    {
+        CustomerDetails = new Customer();
+        Genders = new Gender().GetGender();
+    }
+
+    // Data model class
+    public class Customer
+    {
+        // Properties with validation attributes
+        [Required(ErrorMessage = "First Name is required")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "First Name cannot have less than 3 characters and more than 20 characters in length")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Last Name is required")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Last Name cannot have less than 3 characters and more than 20 characters in length")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Date Of Birth is required")]
+        [Range(typeof(DateTime), "1-1-1950", "12-31-2005", ErrorMessage = "Date of Birth must between 1-Jan-1950 and 31-Dec-2005")]
+        public DateTime? DateOfBirth { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Gender is required")]
+        public string Gender { get; set; }
+
+        [Required(ErrorMessage = "PhoneNumber is required")]
+        [DataType(DataType.PhoneNumber)]
+        [Phone]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Address is required")]
+        [StringLength(100, ErrorMessage = "Address cannot have more than 100 characters in length")]
+        public string Address { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [StringLength(8, MinimumLength = 4, ErrorMessage = "Password must be between 4 and 8 characters")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Confirm Password is required")]
+        [Compare(nameof(Password), ErrorMessage = "Password and Confirm Password do not match")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    // Combobx options class
+    public class Gender
+    {
+        // Properties for gender options
+        public string Name { get; set; }
+        public string Code { get; set; }
+
+        // Method for gender options
+        public List<Gender> GetGender()
+        {
+            List<Gender> Gender = new List<Gender>
+            {
+                new Gender() { Name = "Male", Code = "M" },
+                new Gender() { Name = "Female", Code = "F" },
+                new Gender() { Name = "Other", Code = "O" },
+            };
+            return Gender;
+        }
+    }
+}
