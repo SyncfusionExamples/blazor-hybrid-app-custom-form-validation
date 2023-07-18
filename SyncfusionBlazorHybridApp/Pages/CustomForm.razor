@@ -1,64 +1,64 @@
-﻿@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.DataAnnotations;
 
 <h2>Customer Registration Form</h2>
 
-<EditForm Model="@CustomerDetails" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@_customerDetails" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <div class="row">
         <div class="col-md-6">
             <label class="form-label">First Name :</label>
-            <SfTextBox  @bind-Value="@CustomerDetails.FirstName"></SfTextBox>
-            <ValidationMessage For="@(() => CustomerDetails.FirstName)"></ValidationMessage>
+            <SfTextBox @bind-Value="@_customerDetails.FirstName"></SfTextBox>
+            <ValidationMessage For="@(() => _customerDetails.FirstName)"></ValidationMessage>
         </div>
         <div class="col-md-6">
             <label class="form-label">Last Name :</label>
-            <SfTextBox  @bind-Value="@CustomerDetails.LastName"></SfTextBox>
-            <ValidationMessage For="@(() => CustomerDetails.LastName)"></ValidationMessage>
+            <SfTextBox @bind-Value="@_customerDetails.LastName"></SfTextBox>
+            <ValidationMessage For="@(() => _customerDetails.LastName)"></ValidationMessage>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
             <label class="form-label">Gender :</label>
-            <SfComboBox  TValue="string" TItem="Gender" @bind-Value="@CustomerDetails.Gender" DataSource="@Genders">
+            <SfComboBox TValue="string" TItem="Gender" @bind-Value="@_customerDetails.Gender" DataSource="@_genders">
                 <ComboBoxFieldSettings Text="Name" Value="Code"></ComboBoxFieldSettings>
             </SfComboBox>
-            <ValidationMessage For="@(() => CustomerDetails.Gender)"></ValidationMessage>
+            <ValidationMessage For="@(() => _customerDetails.Gender)"></ValidationMessage>
         </div>
         <div class="col-md-6">
             <label class="form-label">Date of Birth :</label>
-            <SfDatePicker  @bind-Value="@CustomerDetails.DateOfBirth"></SfDatePicker>
-            <ValidationMessage For="@(() => CustomerDetails.DateOfBirth)"></ValidationMessage>
+            <SfDatePicker @bind-Value="@_customerDetails.DateOfBirth"></SfDatePicker>
+            <ValidationMessage For="@(() => _customerDetails.DateOfBirth)"></ValidationMessage>
         </div>
     </div>
     <div class="row">
         <div class="col-md-9">
             <label class="form-label">Email ID :</label>
-            <SfTextBox  @bind-Value="@CustomerDetails.Email"></SfTextBox>
-            <ValidationMessage For="@(() => CustomerDetails.Email)"></ValidationMessage>
+            <SfTextBox @bind-Value="@_customerDetails.Email"></SfTextBox>
+            <ValidationMessage For="@(() => _customerDetails.Email)"></ValidationMessage>
         </div>
         <div class="col-md-3">
             <label class="form-label">Phone Number :</label>
-            <SfTextBox  @bind-Value="@CustomerDetails.PhoneNumber"></SfTextBox>
-            <ValidationMessage For="@(() => CustomerDetails.PhoneNumber)"></ValidationMessage>
+            <SfTextBox @bind-Value="@_customerDetails.PhoneNumber"></SfTextBox>
+            <ValidationMessage For="@(() => _customerDetails.PhoneNumber)"></ValidationMessage>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <label class="form-label">Address :</label>
-            <SfTextBox  Multiline=true @bind-Value="@CustomerDetails.Address"></SfTextBox>
-            <ValidationMessage For="@(() => CustomerDetails.Address)"></ValidationMessage>
+            <SfTextBox Multiline=true @bind-Value="@_customerDetails.Address"></SfTextBox>
+            <ValidationMessage For="@(() => _customerDetails.Address)"></ValidationMessage>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
             <label class="form-label">Password :</label>
-            <SfTextBox  @bind-Value="@CustomerDetails.Password"></SfTextBox>
-            <ValidationMessage For="@(() => CustomerDetails.Password)"></ValidationMessage>
+            <SfTextBox @bind-Value="@_customerDetails.Password"></SfTextBox>
+            <ValidationMessage For="@(() => _customerDetails.Password)"></ValidationMessage>
         </div>
         <div class="col-md-6">
             <label class="form-label">Confirm Password :</label>
-            <SfTextBox  @bind-Value="@CustomerDetails.ConfirmPassword"></SfTextBox>
-            <ValidationMessage For="@(() => CustomerDetails.ConfirmPassword)"></ValidationMessage>
+            <SfTextBox @bind-Value="@_customerDetails.ConfirmPassword"></SfTextBox>
+            <ValidationMessage For="@(() => _customerDetails.ConfirmPassword)"></ValidationMessage>
         </div>
     </div>
     <div class="row">
@@ -69,8 +69,8 @@
 </EditForm>
 
 @code {
-    private Customer CustomerDetails;
-    private List<Gender> Genders;
+    private Customer _customerDetails;
+    private List<Gender> _genders;
 
     // Handle form submission
     private void HandleValidSubmit()
@@ -80,8 +80,8 @@
 
     protected override void OnInitialized()
     {
-        CustomerDetails = new Customer();
-        Genders = new Gender().GetGender();
+        _customerDetails = new Customer();
+        _genders = new Gender().GetGender();
     }
 
     // Data model class
@@ -108,7 +108,7 @@
         [Required(ErrorMessage = "Gender is required")]
         public string Gender { get; set; }
 
-        [Required(ErrorMessage = "PhoneNumber is required")]
+        [Required(ErrorMessage = "Phone number is required")]
         [DataType(DataType.PhoneNumber)]
         [Phone]
         public string PhoneNumber { get; set; }
@@ -126,7 +126,7 @@
         public string ConfirmPassword { get; set; }
     }
 
-    // Combobx options class
+    // Combobox options class
     public class Gender
     {
         // Properties for gender options
@@ -136,13 +136,13 @@
         // Method for gender options
         public List<Gender> GetGender()
         {
-            List<Gender> Gender = new List<Gender>
+            List<Gender> genders = new List<Gender>
             {
                 new Gender() { Name = "Male", Code = "M" },
                 new Gender() { Name = "Female", Code = "F" },
                 new Gender() { Name = "Other", Code = "O" },
             };
-            return Gender;
+            return genders;
         }
     }
 }
