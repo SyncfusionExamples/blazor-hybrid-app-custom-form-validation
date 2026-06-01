@@ -1,6 +1,6 @@
 # Blazor Hybrid App with Custom Form Validation
 
-A comprehensive sample demonstrating how to build a customer registration form in a Blazor Hybrid application using [Syncfusion<sup style="font-size:70%">&reg;</sup> Blazor components](https://www.syncfusion.com/blazor-components) with client-side validation and cross-platform support.
+A comprehensive sample demonstrating how to build a customer registration form in a Blazor Hybrid application using [Blazor components](https://www.syncfusion.com/blazor-components) with client-side validation and cross-platform support.
 
 ## Overview
 
@@ -8,14 +8,14 @@ This sample application showcases best practices for building forms in [Blazor H
 
 - Customer registration form with multiple input types (text, date, dropdown)
 - Client-side form validation using data annotations
-- Syncfusion Blazor components integrated with .NET MAUI
+- Blazor components integrated with .NET MAUI
 - Form submission handling
 
 The sample uses a fictitious employee details scenario to demonstrate real-world form validation patterns including field requirements, string length constraints, email validation, phone number validation, and password confirmation.
 
 ## Features
 
-- **Syncfusion Components** - Uses SfTextBox, SfDatePicker, SfComboBox, and SfButton for a polished UI
+- **Blazor Components** - Uses SfTextBox, SfDatePicker, SfComboBox, and SfButton for a polished UI
 - **Data Annotations Validation** - Built-in .NET validation attributes for required fields, string length, email, and phone number patterns
 - **Cross-Platform** - Supports Windows, iOS, macOS, and Android platforms
 - **Responsive Design** - Bootstrap-based responsive layout
@@ -55,6 +55,5 @@ dotnet run
 
 ## References
 
-- [Blazor Hybrid Documentation](https://learn.microsoft.com/en-us/aspnet/core/blazor/hybrid/)
 - [.NET MAUI Documentation](https://blazor.syncfusion.com/documentation/getting-started/maui-blazor-app)
-- Learn more about [Blazor form validation](https://learn.microsoft.com/en-us/aspnet/core/blazor/forms-validation)
+- [Blazor Form Validation](https://learn.microsoft.com/en-us/aspnet/core/blazor/forms-validation)
